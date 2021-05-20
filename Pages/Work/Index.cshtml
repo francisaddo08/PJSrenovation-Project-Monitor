@@ -1,0 +1,78 @@
+﻿@page
+@model PJSrenovation_Project_Manager.Pages.Work.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingWork[0].PropertyArea)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingWork[0].WorkArea)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingWork[0].Surface)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingWork[0].ExpectedHours)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingWork[0].EntryDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingWork[0].WorkImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingWork[0].ImageDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingWork[0].Project)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.PaintingWork) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PropertyArea)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkArea)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surface)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpectedHours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EntryDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkImage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Project.ProjectID)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.WorkID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.WorkID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.WorkID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

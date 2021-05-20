@@ -1,0 +1,60 @@
+﻿@page
+@model PJSrenovation_Project_Manager.Pages.Painters.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Painter[0].FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Painter[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Painter[0].DrivingLicence)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Painter[0].YearOfStart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Painter[0].CurrentLocation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Painter) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DrivingLicence)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearOfStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentLocation)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.PainterID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.PainterID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.PainterID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

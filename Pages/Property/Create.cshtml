@@ -1,0 +1,73 @@
+﻿@page
+@model PJSrenovation_Project_Manager.Pages.Property.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Property</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Property.PropertyID" class="control-label"></label>
+                <input asp-for="Property.PropertyID" class="form-control" />
+                <span asp-validation-for="Property.PropertyID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.ClintID" class="control-label"></label>
+                <select asp-for="Property.ClintID" class ="form-control" asp-items="ViewBag.ClintID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.Address" class="control-label"></label>
+                <input asp-for="Property.Address" class="form-control" />
+                <span asp-validation-for="Property.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.Location" class="control-label"></label>
+                <input asp-for="Property.Location" class="form-control" />
+                <span asp-validation-for="Property.Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.County" class="control-label"></label>
+                <input asp-for="Property.County" class="form-control" />
+                <span asp-validation-for="Property.County" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.Postcode" class="control-label"></label>
+                <input asp-for="Property.Postcode" class="form-control" />
+                <span asp-validation-for="Property.Postcode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.PropertyType" class="control-label"></label>
+                <select asp-for="Property.PropertyType" class="form-control"></select>
+                <span asp-validation-for="Property.PropertyType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.NumberOfRooms" class="control-label"></label>
+                <input asp-for="Property.NumberOfRooms" class="form-control" />
+                <span asp-validation-for="Property.NumberOfRooms" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.EntryDate" class="control-label"></label>
+                <input asp-for="Property.EntryDate" class="form-control" />
+                <span asp-validation-for="Property.EntryDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

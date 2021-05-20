@@ -1,0 +1,70 @@
+﻿@page
+@model PJSrenovation_Project_Manager.Pages.Work.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>PaintingWork</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PaintingWork.WorkID" />
+            <div class="form-group">
+                <label asp-for="PaintingWork.ProjectID" class="control-label"></label>
+                <select asp-for="PaintingWork.ProjectID" class="form-control" asp-items="ViewBag.ProjectID"></select>
+                <span asp-validation-for="PaintingWork.ProjectID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaintingWork.PropertyArea" class="control-label"></label>
+                <input asp-for="PaintingWork.PropertyArea" class="form-control" />
+                <span asp-validation-for="PaintingWork.PropertyArea" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaintingWork.WorkArea" class="control-label"></label>
+                <input asp-for="PaintingWork.WorkArea" class="form-control" />
+                <span asp-validation-for="PaintingWork.WorkArea" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaintingWork.Surface" class="control-label"></label>
+                <select asp-for="PaintingWork.Surface" class="form-control"></select>
+                <span asp-validation-for="PaintingWork.Surface" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaintingWork.ExpectedHours" class="control-label"></label>
+                <input asp-for="PaintingWork.ExpectedHours" class="form-control" />
+                <span asp-validation-for="PaintingWork.ExpectedHours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaintingWork.EntryDate" class="control-label"></label>
+                <input asp-for="PaintingWork.EntryDate" class="form-control" />
+                <span asp-validation-for="PaintingWork.EntryDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaintingWork.WorkImage" class="control-label"></label>
+                <input asp-for="PaintingWork.WorkImage" class="form-control" />
+                <span asp-validation-for="PaintingWork.WorkImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaintingWork.ImageDate" class="control-label"></label>
+                <input asp-for="PaintingWork.ImageDate" class="form-control" />
+                <span asp-validation-for="PaintingWork.ImageDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

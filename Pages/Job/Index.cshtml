@@ -1,0 +1,138 @@
+﻿@page
+@model PJSrenovation_Project_Manager.Pages.Job.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingJob[0].UnderCoatType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingJob[0].UnderCoatName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingJob[0].Wall)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingJob[0].Ceiling)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingJob[0].Door)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingJob[0].Window)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingJob[0].Brand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingJob[0].WallColourName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingJob[0].WallColourValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingJob[0].Finish)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingJob[0].StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingJob[0].EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingJob[0].ManHours)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingJob[0].Stages)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingJob[0].JobImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingJob[0].ImageDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingJob[0].Work)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaintingJob[0].Painter)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.PaintingJob) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnderCoatType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnderCoatName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Wall)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ceiling)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Door)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Window)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WallColourName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WallColourValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Finish)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ManHours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stages)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobImage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Work.WorkID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Painter.PainterID)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.PaintDecoratingJobID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.PaintDecoratingJobID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.PaintDecoratingJobID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

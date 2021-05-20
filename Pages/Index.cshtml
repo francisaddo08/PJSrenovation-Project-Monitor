@@ -1,0 +1,366 @@
+﻿@page
+
+@model PJSrenovation_Project_Manager.Pages.IndexModel
+@using PJSrenovation_Project_Manager.Models
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+<section >
+    <div class="row p-2 m-1">
+        <div class="col-sm-12 text-center">
+            <p><u class="display-3">Project Monitor</u></p>
+        </div>
+    </div>
+    <div class="row mb-4 p-3 card">
+        <div class="col-sm-12 text-center" id="weekly-performance">
+            @*Weekly project monitoring*@
+        </div>
+
+    </div>
+    <div class="row">
+        <div id="painter-performace" class="col-sm-6 card  ">
+            @*painter performance*@
+        </div>
+        <div class="col-sm-6 card" id="work-category">
+            @*Last five projects hourly Performance*@
+        </div>
+    </div> @*END OF ROW*@
+<div class="row mt-2">
+    <div class="col-sm-6   card" id="project-performance">
+        @*Last five projects hourly Performance*@
+    </div>
+    <div class="col-sm-6 card">
+    <div class="card-title text-center">Work Type and Hours</div>
+        <table id="project-labour-hours" class="table-bordered table-striped table-hover">
+
+            <thead class="bg-dark text-white" >
+                <tr>
+                    <th class="mr-1 p-1">Type</th>
+
+                    <th class="mr-1 p-1">Expected</th>
+                    <th class="mr-1 p-1">Actual</th>
+                    <th class="mr-1 p-1">Painter</th>
+                </tr>
+            </thead>
+            <tbody id="databody">
+            </tbody>
+        </table>
+    </div> @*end of table column*@
+</div> @*End of row*@
+    <div class="row mt-4 p-4 ">
+        <div id="project" class="col-sm-12 mt-4 p-4">
+
+        </div>
+    </div>
+
+
+</section>
+
+
+
+@section Dashboard_Scripts {
+
+    @*=======<!--Load the AJAX API-->=========================================*@
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    @*==========LINE CHART: WEEKLY PERFORMANCE==================*@
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        var weeklyProjectMonitoring;
+        $(document).ready(function () {
+            $.ajax({
+                url: '/api/Dashboard/WeeklyPerformance',
+                data: '',
+                dataType: 'json',
+                type: 'GET',
+                contentType: 'application/json; chartset=utf-8',
+                success: function (data) {
+                    weeklyProjectMonitoring = data;
+                },
+                error: function () {
+                    alert("Error loading weekly performance  data, Please try again later")
+                },
+
+
+
+            }).done(function () {
+                console.log( weeklyProjectMonitoring)
+            });
+
+        });
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable(weeklyProjectMonitoring);
+            //    [
+            //    ['WeekEnd', 'Target', 'Actual'],
+            //    ['31/06', 54, 60],
+            //    ['07/08', 100, 110],
+            //    ['14/08', 98, 78],
+            //    ['21/08', 103, 150]
+            //]);
+
+            var options = {
+                title: 'Weekly Project Performance',
+                
+                curveType: 'function',
+                legend: { position: 'right' },
+                   vAxis: {
+                    title: "Hours"
+                },
+                hAxis: {
+                    title: "Dates",
+                },
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('weekly-performance'));
+
+            chart.draw(data, options);
+        }
+    </script>
+    @*===========END OF LINE CHART==========================*@
+
+    @*==================Table data===============================*@
+    <script type="text/javascript">
+
+        window.onload = () => {
+            var xmlr = new XMLHttpRequest();
+
+            xmlr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText);
+                    var responseJson = JSON.parse(this.responseText);
+                    WorkSurfaceTable(responseJson);
+                }
+            }
+            xmlr.open("GET", "/api/Dashboard/WorkAnalysis", true)
+            xmlr.send();
+
+        };
+        //=====================Table population function=================
+        function WorkSurfaceTable(data) {
+            const tbody = document.getElementById('databody');
+            let rows = ' ';
+            for (let labourHours of data) {
+                rows +=
+                    `<tr>
+                              <td class = "p-1">${labourHours.SurfaceType}</td>
+                           
+                          <td class = "p-1">${labourHours.ExpectedHours}</td>
+                          <td class = "p-1">${labourHours.ActualHours}</td>
+                         <td class = "p-1">${labourHours.Painter}</td>
+                     </tr >`;
+            }
+            tbody.innerHTML = rows;
+        }
+
+    </script>
+
+
+
+
+
+    <script type="text/javascript">
+        google.charts.load('current', { packages: ['corechart'] });
+    </script>
+    @*<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>*@
+
+
+    @*=======================Colunm Chart=======================*@
+
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['bar'] });
+        google.charts.setOnLoadCallback(drawChart);
+        // global  data
+        var projectPerformance;
+
+
+        $(document).ready(function () {
+            $.ajax({
+                url: '/api/Dashboard/ProjectPerformance',
+                data: '',
+                dataType: 'json',
+                type: 'GET',
+                contentType: 'application/json; chartset=utf-8',
+                success: function (data) {
+                    projectPerformance = data;
+                },
+                error: function () {
+                    alert("Error loading project performance data from server! Please try again");
+                },
+
+
+            }).done(function () {
+
+                console.log(painterData);
+            });
+
+
+        });
+
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable(projectPerformance);
+
+            //var options = {
+            //    chart: {
+            //        title: 'Project Performance',
+            //        subtitle: 'Work Targets andPerformance ',
+            //    }
+
+            //};
+
+            var options = {
+                title: 'Hours Performance Actual and Target',
+                subtitle: 'Last Three Projects ',
+                height: 350,
+                seriesType: "bars",
+                vAxis: {
+                    title: "Hours"
+                },
+                hAxis: {
+                    title: "Projects",
+                    slantedText: true,  /* Enable slantedText for horizontal axis */
+                    slantedTextAngle: 90 /* Define slant Angle */
+                },
+                'chartArea': { 'width': '82%', height: '60%', top: '9%', left: '15%', right: '3%', bottom: '0' } /* Adjust chart alignment to fit vertical labels for horizontal axis*/
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('project-performance'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+    </script>
+
+    @*======================END OF COLUMN CHART=====================*@
+    @*==============================Pie Chart========================*@
+    <script language="JavaScript">
+        function drawChart() {
+            var jsonData = $.ajax({
+                url: "/api/Dashboard/WorkSurfaceAnalysis",
+                dataType: "json",
+                async: false
+            }).responseText;
+
+            var jObj = JSON.parse(jsonData);
+            console.log(jObj);
+            var arrayRows = [];
+            
+            for (let workObj of jObj) {
+                arrayRows.push([workObj.Name, workObj.Hours]);
+               
+            }
+            // Define the chart to be drawn.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Wall Surfaces');
+            data.addColumn('number', 'Percentage');
+            for (var i = 0; i < arrayRows.length; i++) {
+                data.addRows([arrayRows[i]]);
+            }
+            //data.addRows([
+            //    ['Firefox', 45.0],
+            //    ['IE', 26.8],
+            //    ['Chrome', 12.8],
+            //    ['Safari', 8.5],
+            //    ['Opera', 6.2],
+            //    ['Others', 0.7]
+            //]);
+
+            // Set chart options
+            var options = {
+                'title': 'Painting Surface Ratio ',
+                'width': 550,
+                'height': 400,
+              
+            };
+
+            // Instantiate and draw the chart.
+            var chart = new google.visualization.PieChart(document.getElementById('work-category'));
+            chart.draw(data, options);
+        }
+        google.charts.setOnLoadCallback(drawChart);
+    </script>
+
+
+    @*============================DUE CHART================================*@
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['bar'] });
+        google.charts.setOnLoadCallback(drawChart);
+        // global  data
+        var painterData;
+
+
+        $(document).ready(function () {
+            $.ajax({
+                url: '/api/Dashboard/PainterPerformance',
+                data: '',
+                dataType: 'json',
+                type: 'GET',
+                contentType: 'application/json; chartset=utf-8',
+                success: function (data) {
+                    painterData = data;
+                },
+                error: function () {
+                    alert("Error loading painter Performance data from server! Please try again");
+                },
+
+
+            });
+
+
+        });
+
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable(painterData);
+
+            var options = {
+                chart: {
+                    title: 'Painting Performance',
+                    subtitle: 'Work Targets and Performance ',
+                },
+                vAxis: {
+                    title: 'Hours'
+                }
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('painter-performace'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+    </script>
+
+
+    @*==========================END OF BAR CHART===========================*@
+
+    @*<script>
+        var painterData;
+
+
+        $(document).ready(function () {
+            $.ajax({
+                url: '/api/Dashboard/WorkSurfaceAnalysis',
+                data: '',
+                dataType: 'json',
+                type: 'GET',
+                contentType: 'application/json; chartset=utf-8',
+                success: function (data) {
+                    painterData = data;
+                },
+                error: function () {
+                    alert("Error loading wall surface data from server! Please try again");
+                },
+
+
+            }).done(function () {
+
+                console.log(painterData);
+            });
+
+
+        });
+
+    </script>*@
+
+} @*END OF SECTION*@

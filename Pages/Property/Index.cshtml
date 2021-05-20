@@ -1,0 +1,78 @@
+﻿@page
+@model PJSrenovation_Project_Manager.Pages.Property.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Property[0].Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Property[0].Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Property[0].County)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Property[0].Postcode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Property[0].PropertyType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Property[0].NumberOfRooms)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Property[0].EntryDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Property[0].Client)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Property) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.County)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Postcode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PropertyType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfRooms)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EntryDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.ID)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.PropertyID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.PropertyID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.PropertyID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

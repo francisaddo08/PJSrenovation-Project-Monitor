@@ -1,0 +1,67 @@
+﻿@page
+@model PJSrenovation_Project_Manager.Pages.Work.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>PaintingWork</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PaintingWork.PropertyArea)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PaintingWork.PropertyArea)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PaintingWork.WorkArea)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PaintingWork.WorkArea)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PaintingWork.Surface)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PaintingWork.Surface)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PaintingWork.ExpectedHours)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PaintingWork.ExpectedHours)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PaintingWork.EntryDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PaintingWork.EntryDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PaintingWork.WorkImage)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PaintingWork.WorkImage)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PaintingWork.ImageDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PaintingWork.ImageDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PaintingWork.Project)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PaintingWork.Project.ProjectID)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.PaintingWork.WorkID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

@@ -1,0 +1,68 @@
+﻿@page
+@model   PJSrenovation_Project_Manager.Pages.Projects.CompletedProjectsModel
+@{
+}
+@{
+    ViewData["Title"] = "Completed Projects";
+}
+
+<h1>Completed Projects</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Project[0].StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Project[0].EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Project[0].ActualEndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Project[0].ProjectImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Project[0].ImageDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Project[0].Property)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Project)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActualEndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProjectImage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImageDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Property.PropertyID)
+                </td>
+                <td>
+                    
+                    <a asp-page="./Details" asp-route-id="@item.ProjectID">Details</a> |
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

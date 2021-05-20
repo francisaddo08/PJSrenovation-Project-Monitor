@@ -1,0 +1,261 @@
+﻿@page
+@model PJSrenovation_Project_Manager.Pages.Projects.DetailsModel
+
+@{
+    ViewData["Title"] = Model.Project.Property.Address;
+}
+
+
+<div class="row ">
+    <div class="col-sm-2 font-weight-bold">
+        @Html.DisplayNameFor(model => model.Project.StartDate) <br />
+        @Html.DisplayNameFor(model => model.Project.EndDate)<br />
+
+    </div>
+    <div class="col-sm-2">
+        @Html.DisplayFor(model => model.Project.StartDate)<br />
+        @Html.DisplayFor(model => model.Project.EndDate)<br />
+    </div>
+    <div class=" col-sm-4">
+        <span class="font-weight-bold text-muted "> PROJECT DETAILS</span>
+        
+     
+    </div>
+
+    <div class="col-sm-4">
+        @{
+
+            if (Model.Project.ActualEndDate != null)
+            {
+                DateTime d = Model.Project.ActualEndDate.GetValueOrDefault();
+
+                <span class="font-weight-bold">Actual End Date: </span><span> @d.ToString("dd/MM/yyyy")</span>
+            } 
+         
+        }
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-sm-4">
+        <h4>Client</h4>
+        <span> @Html.DisplayFor(model => model.Project.Property.Client.FullName) </span><br />
+        <span> @Html.DisplayFor(model => model.Project.Property.Client.Phone)<br /></span>
+        <span>  @Html.DisplayFor(model => model.Project.Property.Client.Email)</span>
+
+    </div>
+    <div class="col-sm-4">
+        <h4>Property</h4>
+        <span> @Html.DisplayFor(model => model.Project.Property.FullAddress)</span><br />
+        <span> @Html.DisplayFor(model => model.Project.Property.Description)</span>
+
+    </div>
+    <div class="col-sm-4">
+        <h4> Scope</h4>
+
+        <a class="btn btn-info" href="~/documents/@Model.Project.ProjectScope">Contract Doc</a>
+        <!-- Button to Open the Modal -->
+        <button type="button" class="btn btn-primary lightbox-popup" id="lightbox-popup" onclick="openModal()">
+            Open Images
+        </button>
+    </div>
+
+</div>
+
+
+@*<h2 style="text-align:center">Lightbox</h2>*@
+
+@*<div class="row">
+        <div class="column">
+            <img src="img_nature.jpg" style="width:100%" onclick="openModal();currentSlide(1)" class="hover-shadow cursor">
+        </div>
+        <div class="column">
+            <img src="img_snow.jpg" style="width:100%" onclick="openModal();currentSlide(2)" class="hover-shadow cursor">
+        </div>
+        <div class="column">
+            <img src="img_mountains.jpg" style="width:100%" onclick="openModal();currentSlide(3)" class="hover-shadow cursor">
+        </div>
+        <div class="column">
+            <img src="img_lights.jpg" style="width:100%" onclick="openModal();currentSlide(4)" class="hover-shadow cursor">
+        </div>
+    </div>*@
+
+@*********************************************************************************************@
+@{
+    Dictionary<string, string> Images = new Dictionary<string, string>();
+    if (Model.Project.ProjectImage != null)
+    {
+        Images.Add(Model.Project.ProjectImage, Model.Project.Property.FullAddress);
+    }
+    if (Model.Project.PaintingWorks.Count != 0)
+    {
+        foreach (var item in Model.Project.PaintingWorks)
+        {
+            if (item.WorkImage != null)
+            {
+                Images.Add(item.WorkImage, item.PropertyArea);
+            }
+            if (item.Job != null && !string.IsNullOrWhiteSpace(item.Job.JobImage))
+            {
+                Images.Add(item.Job.JobImage, item.PropertyArea);
+            }
+        }
+
+
+    }
+}
+
+
+@*********************************************************************************************@
+
+<div id="myModal" class="modal">
+    <span class="close cursor" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+        @if (Images.Count != 0)
+            {
+                int imageIndex = 1;
+                foreach (var item in Images)
+                {
+
+                    <div class="mySlides">
+                        <div class="numbertext">@imageIndex  / @Images.Count</div>
+                        <img src="~/ProjectImages/@item.Key" style="width:100%"
+                             alt="@item.Value]"/>
+                    </div>
+                    imageIndex = imageIndex + 1;
+                }
+
+            }
+
+
+
+
+
+
+
+
+        @*<div class="mySlides">
+                <div class="numbertext">2 / 4</div>
+                <img src="~/ProjectImages/Pahouse_0c1d.jpg" style="width:100%" />
+            </div>
+
+            <div class="mySlides">
+                <div class="numbertext">3 / 4</div>
+                <img src="~/ProjectImages/Pahouse_0c1d.jpg" style="width:100%" />
+            </div>
+
+            <div class="mySlides">
+                <div class="numbertext">4 / 4</div>
+
+                <img src="~/PaintingJobImages/bathroom_1f19.jpg" style="width:100%" />
+            </div>*@
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+        <div class="caption-container">
+            <p id="caption"></p>
+        </div>
+
+
+        @*<div class="column">
+                <img class="demo cursor" src="~/ProjectImages/bathroom_1f19.jpg" style="width:100%" onclick="currentSlide(1)" alt="Nature and sunrise" />
+                <img class="demo cursor" src="img_nature_wide.jpg" style="width:100%" onclick="currentSlide(1)" alt="Nature and sunrise">
+            </div>*@
+
+        @*<div class="column">
+                <img class="demo cursor" src="img_snow_wide.jpg" style="width:100%" onclick="currentSlide(2)" alt="Snow">
+            </div>*@
+        @*<div class="column">
+                <img class="demo cursor" src="img_mountains_wide.jpg" style="width:100%" onclick="currentSlide(3)" alt="Mountains and fjords">
+            </div>*@
+        @*<div class="column">
+                <img class="demo cursor" src="img_lights_wide.jpg" style="width:100%" onclick="currentSlide(4)" alt="Northern Lights">
+            </div>*@
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<p>No OF iMAGES @Model.ProjectImages.Count</p>
+
+
+
+
+@* ************************TABLE*****************************************@
+<div class="table-responsive">
+    <h4>Jobs</h4>
+    <table class="table table-bordered ">
+        <thead class="thead-dark">
+            <tr>
+                <th>Property Area</th>
+                <th>Work</th>
+                <th>Colour</th>
+                <th>Hours</th>
+                <th>Painter</th>
+                <th>Status</th>
+                <th>Completed</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Project.PaintingWorks)
+            {
+            <tr>
+                <td>@item.PropertyArea</td>
+                <td>@item.WorkArea</td>
+                @if (item.Job != null)
+                {
+                    string colour = item.Job.WallColourValue.Trim();
+                    string[] colourValue = colour.Split(" ");
+
+                    <td class="wall-colour" style="background-color:@colour">
+                        @item.Job.WallColourName
+                    </td>
+                    <td>@item.Job.ManHours</td>
+                    <td>@item.Job.Painter.FirstName</td>
+                    <td>@item.Job.Stages</td>
+
+                    
+                    if (item.Job.EndDate != null)
+                    {
+                        DateTime d = item.Job.EndDate.GetValueOrDefault();
+                        <td>@d.ToString("dd/MM/yyyy")
+                
+                </td>
+                    }
+                    else
+                    {
+                        DateTime today = DateTime.UtcNow;
+                        <td>@today</td>
+                    }
+
+
+
+                }
+
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<hr />
+
+<div class="row">
+    <div class="col-sm-2">
+        <a asp-page="./Edit" asp-route-id="@Model.Project.ProjectID">Edit</a> |
+        <a asp-page="./Index">Back to List</a>
+    </div>
+
+</div>

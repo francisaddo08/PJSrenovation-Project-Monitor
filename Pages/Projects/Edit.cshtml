@@ -1,0 +1,68 @@
+﻿@page
+@model PJSrenovation_Project_Manager.Pages.Projects.EditModel
+@using PJSrenovation_Project_Manager.Models
+
+@{
+    ViewData["Title"] = "Edit Project";
+}
+@{
+    @Html.TextBoxFor(model => model.Project.StartDate, @"{0:yyyy\/MM\/dd}", new { @class = "datepicker" })
+}
+<section id="edit-project">
+    <header class="text-center">
+        <h1 class="col-sm-12 text-center">Edit Project</h1>
+    </header>
+    <div class="row">
+        <div class="col-md-4 offset-lg-4 ">
+            <form method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Project.ProjectID" />
+                <div class="form-group">
+                    <label asp-for="Project.PropertyID" class="control-label"></label>
+                    <select asp-for="Project.PropertyID" class="form-control" asp-items="ViewBag.PropertyID"></select>
+                    <span asp-validation-for="Project.PropertyID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Project.StartDate" class="control-label"></label>
+                    <input asp-for="Project.StartDate" class="form-control" />
+                    <span asp-validation-for="Project.StartDate" class="text-danger">  </span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Project.EndDate" class="control-label"></label>
+                    <input asp-for="Project.EndDate" class="form-control" />
+                    <span asp-validation-for="Project.EndDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Project.ActualEndDate" class="control-label"></label>
+                    <input asp-for="Project.ActualEndDate" class="form-control" />
+                    <span asp-validation-for="Project.ActualEndDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProjectScope" class="control-label"></label>
+                    <input type="file" asp-for="ProjectScope" class="form-control" />
+                    <span asp-validation-for="ProjectScope" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProjectImage" class="control-label"></label>
+                    <input type="file" asp-for="ProjectImage" class="form-control" />
+                    <span asp-validation-for="ProjectImage" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Project.ImageDate" class="control-label"></label>
+                    <input asp-for="Project.ImageDate" class="form-control" />
+                    <span asp-validation-for="Project.ImageDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-page="./Index">Back to List</a>
+    </div>
+</section>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
